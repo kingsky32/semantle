@@ -13,7 +13,7 @@ export interface FormProps {
 }
 
 export default function Form({ id }: FormProps) {
-  const { register, handleSubmit, setValue, watch } = useForm<{
+  const { register, handleSubmit, setValue } = useForm<{
     name: string;
     word: string;
   }>({
