@@ -7,12 +7,25 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Game {
+model Semantle {
   id       Int     @id @default(autoincrement())
   name     String
   isSecret Boolean
   password String?
-  word     String
+  guessId  Int     @map("guess_id")
 
   createdAt DateTime @default(now())
+
+  semantleHistories SemantleHistory[]
+}
+
+model SemantleHistory {
+  id         Int    @id @default(autoincrement())
+  semantleId Int    @map("semantle_id")
+  name       String
+  guess      String
+  rank       String
+  sim        Float
+
+  semantle Semantle @relation(fields: [semantleId], references: [id])
 }

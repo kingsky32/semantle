@@ -16,7 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               Game
             </Link>
             <Link
-              href="/game/create"
+              href="/semantle/create"
               className="px-5 py-2 rounded bg-blue-600 text-white text-xl hover:bg-blue-500 transition-all font-light"
             >
               Create Game

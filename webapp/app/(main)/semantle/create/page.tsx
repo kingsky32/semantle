@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import api from '#apis/api';
-import { CreateGame } from '#app/api/game/route';
+import { CreateSemantleRequest } from '#app/api/semantle/route';
 import { toast } from 'react-toastify';
 
 export default function Page() {
@@ -15,8 +15,8 @@ export default function Page() {
     password: string;
     word: string;
   }>();
-  const mutation = useMutation<any, any, CreateGame>((variables) =>
-    api.post<any, any, CreateGame>('/api/game', variables),
+  const mutation = useMutation<any, any, CreateSemantleRequest>((variables) =>
+    api.post<any, any, CreateSemantleRequest>('/api/semantle', variables),
   );
   const router = useRouter();
 
@@ -29,8 +29,8 @@ export default function Page() {
             router.push('/');
             toast.success('Created !');
           },
-          onError: (error) => {
-            toast.error(error);
+          onError: () => {
+            toast.error('Failed to create game');
           },
         });
       })}
@@ -64,15 +64,6 @@ export default function Page() {
             placeholder="Input Password"
             className="border rounded px-5 py-2 font-normal text-lg"
             disabled={!watch('isSecret')}
-          />
-        </label>
-        <label>
-          <p className="text-lg font-medium mb-2">Word</p>
-          <input
-            {...register('word')}
-            type="text"
-            placeholder="Autogenerate..."
-            className="border rounded px-5 py-2 font-normal text-lg"
           />
         </label>
       </div>
