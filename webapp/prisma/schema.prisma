@@ -17,6 +17,8 @@ model Semantle {
   createdAt DateTime @default(now())
 
   semantleHistories SemantleHistory[]
+
+  @@map("semantle")
 }
 
 model SemantleHistory {
@@ -28,4 +30,6 @@ model SemantleHistory {
   sim        Float
 
   semantle Semantle @relation(fields: [semantleId], references: [id])
+
+  @@map("semantle_history")
 }
