@@ -3,7 +3,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '#apis/api';
 import { CreateSemantleRequest } from '#app/api/semantle/route';
 import { toast } from 'react-toastify';
@@ -19,6 +19,7 @@ export default function Page() {
     api.post<any, any, CreateSemantleRequest>('/api/semantle', variables),
   );
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   return (
     <form
@@ -26,8 +27,11 @@ export default function Page() {
       onSubmit={handleSubmit((data) => {
         mutation.mutate(data, {
           onSuccess: () => {
-            router.push('/');
+            router.replace('/');
             toast.success('Created !');
+          },
+          onSettled: () => {
+            return queryClient.invalidateQueries(['semantle']);
           },
           onError: () => {
             toast.error('Failed to create game');

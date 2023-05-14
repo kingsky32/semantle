@@ -1,10 +1,15 @@
 import prisma from '#libs/prisma';
+import { NextResponse } from 'next/server';
 
 export interface CreateSemantleRequest {
   name?: string;
   isSecret?: boolean;
   password?: string;
   word?: string;
+}
+
+export async function GET() {
+  return NextResponse.json(await prisma.semantle.findMany());
 }
 
 export async function POST(request: Request) {

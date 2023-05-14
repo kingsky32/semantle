@@ -1,20 +1,23 @@
+'use client';
+
 import React from 'react';
 import prisma from '#libs/prisma';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+import api from '#apis/api';
+import { Semantle } from '.prisma/client';
 
 export const dynamic = 'force-dynamic';
 
-export default async function Page() {
-  const semantles = await prisma.semantle.findMany({
-    select: {
-      id: true,
-      name: true,
-    },
-  });
+export default function Page() {
+  const query = useQuery<Semantle[]>(['semantle'], () =>
+    api.get('/api/semantle').then(({ data: responseData }) => responseData),
+  );
+
   return (
     <div className="container py-10 flex flex-col gap-5">
-      {semantles
-        .sort((a, b) => b.id - a.id)
+      {query.data
+        ?.sort((a, b) => b.id - a.id)
         .map((semantle) => {
           return (
             <Link
