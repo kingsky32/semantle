@@ -1,11 +1,10 @@
 'use client';
 
 import React from 'react';
-import prisma from '#libs/prisma';
+import { Semantle } from '@prisma/client';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import api from '#apis/api';
-import { Semantle } from '.prisma/client';
 
 export const dynamic = 'force-dynamic';
 
